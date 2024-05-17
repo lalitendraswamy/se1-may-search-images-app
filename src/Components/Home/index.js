@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ImageItem from '../ImageItem'
+import OptionItem from '../OptionItem'
 import logo from "../Images/logo.jpeg";
 import search from "../Images/search.svg";
 import "./style.css";
@@ -60,8 +61,14 @@ export default class index extends Component {
     this.setState({pageStatus:statusCode.loading,imageSearch:searchText},this.getResults)
   }
 
+  onTabChange=(id)=>{
+    const tabData=optionsList.find(obj=>(obj.id===id))
+    this.setState({activeOptionId:id, imageSearch:tabData.name,pageStatus:statusCode.loading}, this.getResults)
+    console.log(tabData.id)
+  }
+
   render() {
-    const { searchText,imagesList } = this.state;
+    const { searchText,imagesList , activeOptionId} = this.state;
     console.log(imagesList)
     return (
       <div className="home">
@@ -73,6 +80,11 @@ export default class index extends Component {
             <img alt="search-logo" src={search}  />
           </button>
         </div>
+
+        <ul className="options-list">
+            {optionsList.map(obj=>(<OptionItem key={obj.id} obj={obj} onTabChange={this.onTabChange} activeOptionId={activeOptionId}  />))}
+
+        </ul>
 
         <ul className="results-list">
                 {imagesList.map(obj=>(<ImageItem key={obj.id} obj={obj} />))}
