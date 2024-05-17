@@ -26,6 +26,7 @@ export default class Index extends Component {
     activeOptionId: optionsList[0].id,
     imageSearch: optionsList[0].name,
     imagesList: [],
+    page:1
   };
 
   componentDidMount() {
@@ -34,8 +35,8 @@ export default class Index extends Component {
 
   getResults = async () => {
     this.setState({ pageStatus: statusCode.loading });
-    const { imageSearch } = this.state;
-    const url = `https://api.unsplash.com/search/photos?page=1&query=${imageSearch}`;
+    const { imageSearch ,page} = this.state;
+    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${imageSearch}`;
     const accessToken = "Client-ID _thqExQsq6RjuK8rQMdGtRC85uR-y00O1aMeWG23IbA";
 
     try {
@@ -123,8 +124,23 @@ export default class Index extends Component {
     }
   };
 
+  onPrev=()=>{
+    const {page}=this.state
+    if(page >= 2){
+        this.setState(prevState=>({page:prevState.page-1}),this.getResults)
+    }
+
+  }
+
+  onNext=()=>{
+    
+    this.setState(prevState=>({page:prevState.page+1}),this.getResults)
+    
+
+  }
+
   render() {
-    const { searchText, activeOptionId,imageSearch } = this.state;
+    const { searchText, activeOptionId,imageSearch, page } = this.state;
     return (
       <div className="home">
         <img alt="webs-logo" src={logo} />
@@ -162,6 +178,13 @@ export default class Index extends Component {
         <hr/>
 
         {this.renderPage()}
+
+        <div className="pagination">
+            <button className="prev" onClick={this.onPrev}>Prev</button>
+            <div>Page: {page}</div>
+            <button className="next" onClick={this.onNext}>Next</button>
+        </div>
+
       </div>
     );
   }
