@@ -30,6 +30,7 @@ body{
 
 
 
+
 .search-card{
     width: 40vw;
     border:2px solid #FFCC00;
@@ -63,6 +64,31 @@ body{
         margin: 10px;
     }
 
+}
+
+
+@media only screen and (max-width: 768px) {
+
+
+    .home{
+        padding-top: 20px;
+    }
+
+    .search-card{
+        width: 80vw;
+
+        input{
+            width: 80%;
+        }
+    
+        button{
+            width: 20%;
+        }
+
+    }
+
+    
+    
 }
 
 .loader-container{
@@ -126,6 +152,30 @@ body{
 
 }
 
+@media only screen and (max-width: 768px) {
+    .options-list{
+        width: 100vw;
+    }
+
+    .results-list{
+        width: 100vw;
+
+        li{
+
+            margin-right: 0px;
+            margin-bottom: 30px;
+
+            img{
+                height: 200px;
+                width: 80vw;
+                border-radius: 0;
+            }
+        }
+
+        
+    }
+}
+
 
 .failure-view{
     display: flex;
@@ -169,3 +219,5 @@ hr{
     border-color: #FFCC00;
     width: 80vw;
 }
+
+
